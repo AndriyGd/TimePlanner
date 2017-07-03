@@ -11,7 +11,25 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="front/content/kendo/styles/web/kendo.common.css">
     <link rel="front/content/kendo/styles/web/kendo.default.css">
-    <link rel="front/content/kendo/styles\web\kendo.default.mobile.css">
+    <link rel="front/content/kendo/styles/web/kendo.default.mobile.css">
 </head>
 
+<<<<<<< HEAD
 <body>
+=======
+<body>
+    <div ng-controller="schedulerController">
+        <div kendo-scheduler k-options="schedulerOptions">
+            <span k-event-template class='custom-event'>{{dataItem.title}}</span>
+            <div k-all-day-event-template class='custom-all-day-event'>{{dataItem.title}}</div>
+        </div>
+    </div>
+    <script src="front/content/kendo/js/jquery.js"></script>
+    <script src="front/content/kendo/js/kendo.all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="front/app.module.js"></script>
+    <script src="front/controllers/sheduler.controller.js"></script>
+</body>
+
+</html>
+>>>>>>> 4b97de1e3547ae46250202f805da535b19c6b696
