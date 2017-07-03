@@ -13,18 +13,20 @@
         crossorigin="anonymous">
     <link rel="front/content/kendo/styles/web/kendo.common.css">
     <link rel="front/content/kendo/styles/web/kendo.default.css">
-    <link rel="front/content/kendo/styles\web\kendo.default.mobile.css">
+    <link rel="front/content/kendo/styles/web/kendo.default.mobile.css">
 </head>
 
 <body>
-
-
     <div ng-controller="schedulerController">
-        {{name}}
+        <div kendo-scheduler k-options="schedulerOptions">
+            <span k-event-template class='custom-event'>{{dataItem.title}}</span>
+            <div k-all-day-event-template class='custom-all-day-event'>{{dataItem.title}}</div>
+        </div>
     </div>
+    <script src="front/content/kendo/js/jquery.js"></script>
+    <script src="front/content/kendo/js/kendo.all.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="front/app.module.js"></script>
-    <script src="front/directives/directives.js"></script>
     <script src="front/controllers/sheduler.controller.js"></script>
 </body>
 
