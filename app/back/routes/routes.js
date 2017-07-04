@@ -1,7 +1,9 @@
 var express = require("express");
 var router = express.Router();
 
-var db = require('../queries/queries');
+var repository = require('../queries/queries');
+
+var db = new repository();
 
 router.get('/api/tasks', db.getAllTasks);
 router.get('/api/tasks/:id', db.getSingleTask);
