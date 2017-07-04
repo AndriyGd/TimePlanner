@@ -24,6 +24,7 @@
     "angular-ui-grid": "^3.2.9",
     "angular-ui-router": "^0.3.1",
     "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "css-loader": "0.23.1",
     "express": "^4.14.0",
