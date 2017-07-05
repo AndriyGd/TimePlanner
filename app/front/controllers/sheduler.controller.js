@@ -1,7 +1,7 @@
 app.controller('schedulerController', ['$scope', function($scope) {
     $scope.schedulerOptions = {
-        date: new Date("2013/6/13"),
-        startTime: new Date("2013/6/13 07:00 AM"),
+        date: new Date("2017/7/13"),
+        startTime: new Date("2017/7/13 07:00 AM"),
         height: 600,
         views: [
             "day",
@@ -12,21 +12,29 @@ app.controller('schedulerController', ['$scope', function($scope) {
             "week",
             "month",
         ],
+        messages: {
+            allDay: "daily",
+            ariaEventLabel: "Selected event is {0}. It starts on {1:d} {2:t}",
+            cancel: "Undo"
+        },
         timezone: "Etc/UTC",
         dataSource: {
             batch: true,
             transport: {
                 read: {
-                    url: "https://demos.telerik.com/kendo-ui/service/tasks",
-                    dataType: "jsonp"
+                    url: "http://localhost:3000/api/tasks/",
+                    dataType: "json"
                 },
                 update: {
                     url: "https://demos.telerik.com/kendo-ui/service/tasks/update",
                     dataType: "jsonp"
                 },
                 create: {
-                    url: "https://demos.telerik.com/kendo-ui/service/tasks/create",
-                    dataType: "jsonp"
+                    // url: "http://demos.kendoui.com/service/tasks/create",
+                    // dataType: "jsonp"
+                    url: "http://localhost:3000/api/tasks/",
+                    dataType: "jsonp",
+                    type: "POST"
                 },
                 destroy: {
                     url: "https://demos.telerik.com/kendo-ui/service/tasks/destroy",

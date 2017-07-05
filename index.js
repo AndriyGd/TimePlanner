@@ -1,14 +1,18 @@
 'use-strict'
 
 let bodyParser = require('body-parser');
+let jsonp = require('jsonp-express');
 let express = require("express");
 let logger = require('morgan');
 let routes = require('./app/back/routes/routes');
 
 app = express();
+app.enable('jsonp callback');
+app.set("jsonp callback", true);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(jsonp);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/app"));
 app.use('/', routes);

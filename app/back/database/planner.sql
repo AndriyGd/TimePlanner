@@ -1,13 +1,23 @@
-DROP DATABESE IF EXISTS palenner;
-CREATE DATABASE palenner;
+DROP DATABASE IF EXISTS planner;
+DROP TABLE public.tasks;
+DROP TABLE public.owners;
+
+CREATE TABLE owners(
+    "OwnerID" SERIAL PRIMARY KEY,
+    "Name" VARCHAR    
+);
 
 CREATE TABLE tasks(
-    ID SERIAL PRIMARY KEY,
-    name VARCHAR,
-    breed VARCHAR,
-    age INTEGER,
-    sex VARCHAR
-)
-
-INSERT INTO tasks(name, breed, age, sex)
-    VALUES('Oleg', 'Retrieved', 19, 'M');
+    "TaskID" SERIAL PRIMARY KEY,
+    "OwnerID" INTEGER REFERENCES owners("OwnerID"),
+    "Title" VARCHAR,
+    "Description" VARCHAR,
+    "StartTimezone" VARCHAR,
+    "Start" date,
+    "End" date,
+    "EndTimezone" VARCHAR,
+    "RecurrenceRule" VARCHAR,
+    "RecurrenceID" VARCHAR,
+    "RecurrenceException" VARCHAR,
+    "IsAllDay" BOOLEAN
+);
