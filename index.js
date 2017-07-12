@@ -3,6 +3,8 @@
 let bodyParser = require('body-parser');
 let jsonp = require('jsonp-express');
 let express = require("express");
+let favicon = require('serve-favicon');
+let path = require('path');
 let logger = require('morgan');
 let routes = require('./app/back/routes/routes');
 
@@ -16,6 +18,7 @@ app.use(jsonp);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/app"));
 app.use('/', routes);
+app.use(favicon(path.join(__dirname, 'favicon.ico')))
 
 //catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -28,6 +31,7 @@ app.use((req, res, next) => {
 //will print stacktrace
 if (app.get('env') === 'development') {
     app.use((err, req, res, next) => {
+        console.log(err);
         res.status(err.code || 500)
             .json({
                 status: 'error',
@@ -39,11 +43,16 @@ if (app.get('env') === 'development') {
 //production error handler
 //no stacktraces leked to user
 app.use((err, req, res, next) => {
+    console.log(err);
     res.status(err.status || 500)
         .json({
             status: 'error',
             message: err
         });
+});
+
+app.get('/favicon.ico', function (req, res) {
+    res.send(204);
 });
 
 app.listen(3000);

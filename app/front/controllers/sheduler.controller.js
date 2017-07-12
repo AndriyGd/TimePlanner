@@ -1,46 +1,59 @@
-app.controller('schedulerController', ['$scope', function($scope) {
+//kendo.timezone.convert(targetDate, "Etc/GMT+2", "Etc/GMT-6");
+app.controller('schedulerController', ['$scope', function ($scope) {
+    function scheduler_save(e) {
+        console.log(e);
+    }
+
     $scope.schedulerOptions = {
         date: new Date("2017/7/13"),
-        startTime: new Date("2017/7/13 07:00 AM"),
+        startTime: new Date("2017/7/13 00:00:00 GMT+0200"),
         height: 600,
         views: [
             "day",
             {
-                type: "workWeek",
+                type: "month",
                 selected: true
             },
             "week",
             "month",
         ],
-        messages: {
-            allDay: "daily",
-            ariaEventLabel: "Selected event is {0}. It starts on {1:d} {2:t}",
-            cancel: "Undo"
-        },
-        timezone: "Etc/UTC",
+        //save: scheduler_save,
+        timezone: "Europe/Kiev",
         dataSource: {
             batch: true,
             transport: {
                 read: {
+                    // url: "https://demos.telerik.com/kendo-ui/service/tasks",
+                    // dataType: "jsonp"
+
                     url: "http://localhost:3000/api/tasks/",
                     dataType: "json"
                 },
                 update: {
-                    url: "https://demos.telerik.com/kendo-ui/service/tasks/update",
-                    dataType: "jsonp"
+                    // url: "https://demos.telerik.com/kendo-ui/service/tasks/update",
+                    // dataType: "jsonp"
+
+                    url: "http://localhost:3000/api/taskUpdate/",
+                    dataType: "jsonp",
+                    type: "PUT"
                 },
                 create: {
                     // url: "http://demos.kendoui.com/service/tasks/create",
                     // dataType: "jsonp"
-                    url: "http://localhost:3000/api/tasks/",
+
+                    url: "http://localhost:3000/api/taskCreate/",
                     dataType: "jsonp",
                     type: "POST"
                 },
                 destroy: {
-                    url: "https://demos.telerik.com/kendo-ui/service/tasks/destroy",
-                    dataType: "jsonp"
+                    // url: "https://demos.telerik.com/kendo-ui/service/tasks/destroy",
+                    // dataType: "jsonp"
+
+                    url: "http://localhost:3000/api/taskDelete/",
+                    dataType: "jsonp",
+                    type: "DELETE"
                 },
-                parameterMap: function(options, operation) {
+                parameterMap: function (options, operation) {
                     if (operation !== "read" && options.models) {
                         return {
                             models: kendo.stringify(options.models)
@@ -49,6 +62,7 @@ app.controller('schedulerController', ['$scope', function($scope) {
                 }
             },
             schema: {
+                timezone: "Europe/Kiev",
                 model: {
                     id: "taskId",
                     fields: {
@@ -72,10 +86,12 @@ app.controller('schedulerController', ['$scope', function($scope) {
                             from: "End"
                         },
                         startTimezone: {
-                            from: "StartTimezone"
+                            from: "StartTimezone",
+                            //defaultValue: 'Europe/London'
                         },
                         endTimezone: {
-                            from: "EndTimezone"
+                            from: "EndTimezone",
+                            //defaultValue: 'Europe/London'
                         },
                         description: {
                             from: "Description"
@@ -103,15 +119,15 @@ app.controller('schedulerController', ['$scope', function($scope) {
             filter: {
                 logic: "or",
                 filters: [{
-                        field: "ownerId",
-                        operator: "eq",
-                        value: 1
-                    },
-                    {
-                        field: "ownerId",
-                        operator: "eq",
-                        value: 2
-                    }
+                    field: "ownerId",
+                    operator: "eq",
+                    value: 1
+                },
+                {
+                    field: "ownerId",
+                    operator: "eq",
+                    value: 2
+                }
                 ]
             }
         },
@@ -119,20 +135,20 @@ app.controller('schedulerController', ['$scope', function($scope) {
             field: "ownerId",
             title: "Owner",
             dataSource: [{
-                    text: "Alex",
-                    value: 1,
-                    color: "#f8a398"
-                },
-                {
-                    text: "Bob",
-                    value: 2,
-                    color: "#51a0ed"
-                },
-                {
-                    text: "Charlie",
-                    value: 3,
-                    color: "#56ca85"
-                }
+                text: "Alex",
+                value: 1,
+                color: "#f8a398"
+            },
+            {
+                text: "Bob",
+                value: 2,
+                color: "#51a0ed"
+            },
+            {
+                text: "Charlie",
+                value: 3,
+                color: "#56ca85"
+            }
             ]
         }]
     };
