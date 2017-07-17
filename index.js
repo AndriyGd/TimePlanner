@@ -1,6 +1,7 @@
 'use-strict'
 
 let bodyParser = require('body-parser');
+let cors = require('cors');
 let jsonp = require('jsonp-express');
 let express = require("express");
 let favicon = require('serve-favicon');
@@ -8,9 +9,23 @@ let path = require('path');
 let logger = require('morgan');
 let routes = require('./app/back/routes/routes');
 
+let whiteList = ['http://localhost:8080'];
+let corsOptions = {
+    origin: (origin, callback) => {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
+
 app = express();
+
 app.enable('jsonp callback');
 app.set("jsonp callback", true);
+
+app.use(cors())
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -54,6 +69,10 @@ app.use((err, req, res, next) => {
 app.get('/favicon.ico', function (req, res) {
     res.send(204);
 });
+
+// app.get('/api/tasks', cors(corsOptions), (req, res, next) => {
+//     res.json({ msg: 'This is CORS-enabled for a whitelisted domain.' })
+// });
 
 app.listen(3000);
 console.log("Server running on port 3000");

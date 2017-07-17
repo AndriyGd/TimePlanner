@@ -4,6 +4,10 @@ app.controller('schedulerController', ['$scope', function ($scope) {
         console.log(e);
     }
 
+    function scheduler_remove(e) {
+        console.log(e);
+    }
+
     $scope.schedulerOptions = {
         date: new Date("2017/7/13"),
         startTime: new Date("2017/7/13 00:00:00 GMT+0200"),
@@ -17,7 +21,8 @@ app.controller('schedulerController', ['$scope', function ($scope) {
             "week",
             "month",
         ],
-        //save: scheduler_save,
+        save: scheduler_save,
+        remove: scheduler_remove,
         timezone: "Europe/Kiev",
         dataSource: {
             batch: true,
@@ -65,7 +70,12 @@ app.controller('schedulerController', ['$scope', function ($scope) {
                 timezone: "Europe/Kiev",
                 model: {
                     id: "taskId",
+
                     fields: {
+                        // isNew: {
+                        //     type: "boolean",
+                        //     from: "IsAllDay"
+                        // },
                         taskId: {
                             from: "TaskID",
                             type: "number"
